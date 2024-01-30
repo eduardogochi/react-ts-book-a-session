@@ -1,4 +1,4 @@
-//import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Button from '../UI/Button'
 
 export default function MainHeader() {
@@ -8,20 +8,20 @@ export default function MainHeader() {
                 <h1>ReactMentoring</h1>
                 <nav>
                     <ul>
-                        {/* <li>
-                            <NavLink to='/'>Our Mission</NavLink>
+                        <li>
+                            <NavLink to='/' className={({ isActive }) => isActive ? 'active' : ''} end>
+                                Our Mission
+                            </NavLink>
                         </li>
                         <li>
-                            <NavLink to='/sessions'>Browse Sessions</NavLink>
-                        </li> */}
-                        <li>
-                            <a>Our Mission</a>
+                            <NavLink to='/sessions' className={({ isActive }) => isActive ? 'active' : ''}>
+                                Browse Sessions
+                            </NavLink>
                         </li>
                         <li>
-                            <a>Browse Sessions</a>
-                        </li>
-                        <li>
-                            <Button>Upcoming Sessions</Button>
+                            <Button>
+                                Upcoming Sessions
+                            </Button>
                         </li>
                     </ul>
                 </nav>

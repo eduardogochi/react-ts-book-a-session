@@ -1,15 +1,15 @@
 import { type ComponentPropsWithoutRef } from 'react'
 
 type ButtonProps = ComponentPropsWithoutRef<'button'> & {
-    href?: never
+    to?: never
 }
 
 type AnchorProps = ComponentPropsWithoutRef<'a'> & {
-    href?: string
+    to?: string
 }
 
 function isAnchorProps(props: ButtonProps | AnchorProps): props is AnchorProps {
-    return 'href' in props
+    return 'to' in props
 }
 
 export default function Button(props: ButtonProps | AnchorProps) {
