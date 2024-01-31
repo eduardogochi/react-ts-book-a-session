@@ -1,38 +1,38 @@
-import { useRef, useEffect, ReactNode } from 'react'
+import { useRef, ReactNode, forwardRef, useImperativeHandle } from 'react'
 import { createPortal } from 'react-dom'
 
+export type ModalHandle = {
+  open: () => void
+}
+
 type ModalProps = {
-  open: boolean
   children: ReactNode
   onClose: () => void
 }
 
-const Modal = ({ open, children, onClose }: ModalProps) => {
+const Modal = forwardRef<ModalHandle, ModalProps>(function Modal(
+  { children, onClose },
+  ref
+) {
+
   const dialog = useRef<HTMLDialogElement>(null)
 
-  useEffect(() => {
-    if (dialog.current) {
-      if (open) {
-        dialog.current.showModal()
-      } else {
-        dialog.current.close()
+  useImperativeHandle(ref, () => {
+    return {
+      open: () => {
+        if (dialog.current) {
+          dialog.current?.showModal()
+        }
       }
     }
-  }, [open])
-
-  const modalElement = document.getElementById('modal')
-
-  if (!modalElement) {
-    console.error("Can't find modal element")
-    return null
-  }
+  })
 
   return createPortal(
     <dialog className='modal' ref={dialog} onClose={onClose}>
-      {open ? children : null}
+      {children}
     </dialog>,
-    modalElement
+    document.getElementById('modal-root') as Element | DocumentFragment
   )
-}
+})
 
 export default Modal
