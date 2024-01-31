@@ -34,7 +34,14 @@ export default function Button(props: ButtonProps | ButtonLinkProps) {
         );
     }
 
+    const { children, textOnly, ...otherProps } = props;
+
     return (
-        <button className='button' {...props}></button>
+        <button
+        className={`button ${textOnly ? ' button--text-only' : ''}`}
+        {...otherProps}
+    >
+        {children}
+    </button>
     )
 }

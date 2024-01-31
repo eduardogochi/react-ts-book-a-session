@@ -2,15 +2,16 @@ import { FormEvent, useEffect, useRef } from 'react'
 import Modal, { ModalHandle } from '../UI/Modal'
 import Input from '../UI/Input'
 import Button from '../UI/Button'
-import {Session, useSessionsContext } from '../../store/sessions-context'
+import { Session, useSessionsContext } from '../store/sessions-context'
 
 type BookSessionProps = {
     session: Session
     onDone: () => void
 }
 
-export default function BookSession({ session, onDone }): BookSessionProps {
+export default function BookSession({ session, onDone }: BookSessionProps) {
     const modal = useRef<ModalHandle>(null)
+    const sessionsCtx = useSessionsContext()
 
     useEffect(() => {
         if (modal.current) {
@@ -24,6 +25,7 @@ export default function BookSession({ session, onDone }): BookSessionProps {
         const formData = new FormData(event.currentTarget)
         const data = Object.fromEntries(formData)
         console.log(data)
+        sessionsCtx.bookSession(session)
         onDone()
     }
 
