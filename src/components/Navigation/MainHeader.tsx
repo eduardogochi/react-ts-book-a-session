@@ -11,16 +11,14 @@ export default function MainHeader() {
         setUpcomingSessionsVisible(true)
     }
 
-    function hideUpcomingSessions() { 
+    function hideUpcomingSessions() {
         setUpcomingSessionsVisible(false)
     }
     return (
         <>
             {upcomingSessionsVisible && (
                 <UpcomingSessions onClose={hideUpcomingSessions} />
-            )
-            
-            }
+            )}
             <header id='main-header'>
                 <h1>ReactMentoring</h1>
                 <nav>
