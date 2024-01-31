@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
 import HomePage from './pages/Home'
 import SessionsPage from './pages/Sessions'
+import SessionPage from './pages/Session'
 import Root from './pages/Root'
 
 const Router = createBrowserRouter([
@@ -14,6 +15,7 @@ const Router = createBrowserRouter([
         element: <HomePage />
       },
       {path:'/sessions', element: <SessionsPage />},
+      {path:'/sessions/:id', element: <SessionPage />},
     ],
   }
 ])

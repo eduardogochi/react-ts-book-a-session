@@ -1,21 +1,37 @@
-import { type ComponentPropsWithoutRef } from 'react'
+import { type ComponentPropsWithoutRef, ReactNode } from 'react'
+import { Link, type LinkProps } from 'react-router-dom'
 
-type ButtonProps = ComponentPropsWithoutRef<'button'> & {
+type BaseProps = {
+    children: ReactNode,
+    textOnly?: boolean
+}
+
+type ButtonProps = ComponentPropsWithoutRef<'button'> & BaseProps & {
     to?: never
 }
 
-type AnchorProps = ComponentPropsWithoutRef<'a'> & {
-    to?: string
+type ButtonLinkProps = LinkProps & BaseProps & {
+    to: string
 }
 
-function isAnchorProps(props: ButtonProps | AnchorProps): props is AnchorProps {
+function isRouterLink(
+    props: ButtonProps | ButtonLinkProps
+): props is ButtonLinkProps {
     return 'to' in props
 }
 
-export default function Button(props: ButtonProps | AnchorProps) {
+export default function Button(props: ButtonProps | ButtonLinkProps) {
 
-    if (isAnchorProps(props)) {
-        return <a className='link' {...props}></a>
+    if (isRouterLink(props)) {
+        const { children, textOnly, ...otherProps } = props;
+        return (
+            <Link
+                className={`button ${textOnly ? ' button--text-only' : ''}`}
+                {...otherProps}
+            >
+                {children}
+            </Link>
+        );
     }
 
     return (
